@@ -62,6 +62,6 @@ class MainActivity : AppCompatActivity() {
 
     private fun submitQuery() {
         val query = searchEditText.text.toString()
-        viewModel.getEntries(query)
+        viewModel.postQuery(query)
     }
 }
