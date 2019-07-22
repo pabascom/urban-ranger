@@ -6,6 +6,7 @@ import android.view.View
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.test.espresso.idling.CountingIdlingResource
 import com.philbas.demo.R
 import com.philbas.demo.sorting.EntrySorter
 import com.philbas.demo.ui.adapter.EntriesAdapter
@@ -14,6 +15,7 @@ import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
     lateinit var viewModel: MainViewModel
+    val countingIdlingResource = CountingIdlingResource("MainActivity")
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -32,6 +34,9 @@ class MainActivity : AppCompatActivity() {
         entriesRecyclerView.layoutManager = LinearLayoutManager(this)
 
         viewModel.getEntryLiveData().observe(this, Observer { entries ->
+            if (!countingIdlingResource.isIdleNow) {
+                countingIdlingResource.decrement()
+            }
             adapter.updateEntries(entries)
         })
     }
@@ -62,6 +67,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun submitQuery() {
         val query = searchEditText.text.toString()
+        countingIdlingResource.increment()
         viewModel.postQuery(query)
     }
 }

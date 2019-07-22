@@ -1,12 +1,20 @@
 package com.philbas.demo
 
-import androidx.test.InstrumentationRegistry
+import android.content.Intent
+import androidx.test.espresso.IdlingRegistry
+import androidx.test.espresso.intent.Intents
+import androidx.test.rule.ActivityTestRule
 import androidx.test.runner.AndroidJUnit4
+import com.philbas.demo.ui.activity.MainActivity
+import kotlinx.android.synthetic.main.activity_main.*
+import org.junit.After
 
 import org.junit.Test
 import org.junit.runner.RunWith
 
 import org.junit.Assert.*
+import org.junit.Before
+import org.junit.Rule
 
 /**
  * Instrumented test, which will execute on an Android device.
@@ -16,13 +24,29 @@ import org.junit.Assert.*
 @RunWith(AndroidJUnit4::class)
 class ExampleInstrumentedTest {
 
-    /*
-     * Don't laugh, sometimes you need this test.
-     */
+    @get:Rule
+    val activityRule: ActivityTestRule<MainActivity> = ActivityTestRule(
+        MainActivity::class.java,
+        false,
+        true
+    )
+
+    @Before
+    fun setUp() {
+        IdlingRegistry.getInstance().register(activityRule.activity.countingIdlingResource)
+        activityRule.launchActivity(Intent())
+        Intents.init()
+    }
+
     @Test
-    fun app_turns_on_and_doesnt_crash() {
-        // Context of the app under test.
-        val appContext = InstrumentationRegistry.getTargetContext()
-        assertEquals("com.philbas.demo", appContext.packageName)
+    fun recyclerView_isNotEmpty() {
+        val rvCount = activityRule.activity.entriesRecyclerView.adapter?.itemCount ?: 0
+        assert(rvCount > 0)
+    }
+
+    @After
+    fun tearDown() {
+        IdlingRegistry.getInstance().unregister(activityRule.activity.countingIdlingResource)
+        Intents.release()
     }
 }
