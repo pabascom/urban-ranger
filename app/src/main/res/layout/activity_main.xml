@@ -28,10 +28,52 @@
 
     </LinearLayout>
 
+    <TextView
+            android:text="@string/sort_by"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+    <RadioGroup
+            android:id="@+id/sortByRadioGroup"
+            android:orientation="horizontal"
+            android:checkedButton="@id/relevanceButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+        <androidx.appcompat.widget.AppCompatRadioButton
+                android:text="@string/relevance_rb_label"
+                android:id="@+id/relevanceButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+        <androidx.appcompat.widget.AppCompatRadioButton
+                android:text="@string/thumbs_up_rb_label"
+                android:id="@+id/thumbsUpButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+        <androidx.appcompat.widget.AppCompatRadioButton
+                android:text="@string/thumbs_down_rb_label"
+                android:id="@+id/thumbsDownButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+    </RadioGroup>
+
     <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/entriesRecyclerView"
+            android:visibility="visible"
             android:layout_weight="1"
             android:layout_width="match_parent"
             android:layout_height="match_parent"/>
+
+    <FrameLayout
+            android:id="@+id/loadingScreen"
+            android:visibility="gone"
+            android:layout_weight="1"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+        <ProgressBar
+                android:layout_gravity="center_horizontal"
+                android:paddingTop="64dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+    </FrameLayout>
 
 </LinearLayout>

@@ -2,10 +2,12 @@ package com.philbas.demo.ui.activity
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.View
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.philbas.demo.R
+import com.philbas.demo.sorting.EntrySorter
 import com.philbas.demo.ui.adapter.EntriesAdapter
 import com.philbas.demo.ui.viewmodel.MainViewModel
 import kotlinx.android.synthetic.main.activity_main.*
@@ -20,14 +22,11 @@ class MainActivity : AppCompatActivity() {
         viewModel = ViewModelProviders.of(this).get(MainViewModel::class.java)
 
         configureRecyclerView()
+        configureLoadingState()
         setOnClickListeners()
     }
 
-    private fun setOnClickListeners(){
-        searchButton.setOnClickListener { onSearchButtonClicked() }
-    }
-
-    private fun configureRecyclerView(){
+    private fun configureRecyclerView() {
         val adapter = EntriesAdapter()
         entriesRecyclerView.adapter = adapter
         entriesRecyclerView.layoutManager = LinearLayoutManager(this)
@@ -37,7 +36,31 @@ class MainActivity : AppCompatActivity() {
         })
     }
 
-    private fun onSearchButtonClicked(){
+    private fun configureLoadingState() {
+        viewModel.getIsLoadingLiveData().observe(this, Observer { isLoading ->
+            if(isLoading){
+                entriesRecyclerView.visibility = View.GONE
+                loadingScreen.visibility = View.VISIBLE
+            } else {
+                entriesRecyclerView.visibility = View.VISIBLE
+                loadingScreen.visibility = View.GONE
+            }
+        })
+    }
+
+    private fun setOnClickListeners() {
+        searchButton.setOnClickListener { submitQuery() }
+        sortByRadioGroup.setOnCheckedChangeListener { group, id ->
+            EntrySorter.sortMode = when (id) {
+                R.id.thumbsUpButton -> EntrySorter.SortMode.THUMBS_UP
+                R.id.thumbsDownButton -> EntrySorter.SortMode.THUMBS_DOWN
+                else -> EntrySorter.SortMode.RELEVANCE
+            }
+            submitQuery()
+        }
+    }
+
+    private fun submitQuery() {
         val query = searchEditText.text.toString()
         viewModel.getEntries(query)
     }

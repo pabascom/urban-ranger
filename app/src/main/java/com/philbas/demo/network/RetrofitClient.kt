@@ -19,7 +19,11 @@ object RetrofitClient {
     const val API_KEY_VALUE = "10a5108924mshe5ac5e3a43c7beap1dfb25jsnf85444001ea3"
 
     private val okHttpClient by lazy {
-        // Format is chosen so it's easy to add interceptors, caches, etc
+        /*
+         * Format is chosen so it's easy to add interceptors, caches, etc. This interceptor
+         * came in handy while I was debugging the endpoint, and I figured I'd leave it in
+         * as an example.
+         */
         OkHttpClient.Builder()
             .addInterceptor(HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY))
             .build()

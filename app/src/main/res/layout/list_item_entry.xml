@@ -8,6 +8,7 @@
     </data>
     
     <LinearLayout
+            android:paddingTop="16dp"
             android:orientation="vertical"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
@@ -19,26 +20,30 @@
 
         <LinearLayout
                 android:orientation="horizontal"
+                android:paddingTop="2dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
             <TextView
                     android:text="@string/thumbs_up_label"
+                    android:paddingEnd="4dp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"/>
 
             <TextView
-                    android:text="@{entry.thumbsUp.toString()}"
+                    android:text="@{Integer.toString(entry.thumbsUp)}"
+                    android:paddingEnd="16dp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"/>
 
             <TextView
                     android:text="@string/thumbs_down_label"
+                    android:paddingEnd="4dp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"/>
 
             <TextView
-                    android:text="@{entry.thumbsDown.toString()}"
+                    android:text="@{Integer.toString(entry.thumbsDown)}"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"/>
 

@@ -3,4 +3,8 @@
     <string name="search_button_text">Go</string>
     <string name="thumbs_up_label">Thumbs up:</string>
     <string name="thumbs_down_label">Thumbs down:</string>
+    <string name="sort_by">Sort by:</string>
+    <string name="relevance_rb_label">Relevance</string>
+    <string name="thumbs_up_rb_label">Thumbs Up</string>
+    <string name="thumbs_down_rb_label">Thumbs Down</string>
 </resources>
