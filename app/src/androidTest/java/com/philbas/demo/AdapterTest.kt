@@ -3,6 +3,7 @@ package com.philbas.demo
 import android.content.Intent
 import androidx.test.espresso.IdlingRegistry
 import androidx.test.espresso.intent.Intents
+import androidx.test.internal.runner.junit4.AndroidJUnit4ClassRunner
 import androidx.test.rule.ActivityTestRule
 import androidx.test.runner.AndroidJUnit4
 import com.philbas.demo.ui.activity.MainActivity
@@ -16,13 +17,8 @@ import org.junit.Assert.*
 import org.junit.Before
 import org.junit.Rule
 
-/**
- * Instrumented test, which will execute on an Android device.
- *
- * See [testing documentation](http://d.android.com/tools/testing).
- */
-@RunWith(AndroidJUnit4::class)
-class ExampleInstrumentedTest {
+@RunWith(AndroidJUnit4ClassRunner::class)
+class AdapterTest {
 
     @get:Rule
     val activityRule: ActivityTestRule<MainActivity> = ActivityTestRule(
